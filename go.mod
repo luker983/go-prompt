@@ -1,4 +1,4 @@
-module github.com/luker983/go-prompt
+module github.com/c-bata/go-prompt
 
 go 1.14
 
