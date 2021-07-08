@@ -42,6 +42,10 @@ type Exec struct {
 	input string
 }
 
+func (p *Prompt) Render() {
+    p.renderer.Render(p.buf, p.completion) 
+}
+
 // Run starts prompt.
 func (p *Prompt) Run() {
 	p.skipTearDown = false
