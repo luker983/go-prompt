@@ -143,7 +143,7 @@ type ConsoleWriter interface {
 	/* Scrolling */
 
 	// ScrollDown scrolls display down one line.
-	ScrollDown()
+	ScrollDown(col int)
 	// ScrollUp scroll display up one line.
 	ScrollUp()
 

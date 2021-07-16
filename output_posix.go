@@ -65,3 +65,16 @@ func NewStderrWriter() ConsoleWriter {
 		fd: syscall.Stderr,
 	}
 }
+
+/* Scrolling */
+
+// ScrollDown scrolls display down one line.
+// column parameter is ignored
+func (w *VT100Writer) ScrollDown(col int) {
+	w.WriteRaw([]byte{0x1b, 'D'})
+}
+
+// ScrollUp scroll display up one line.
+func (w *VT100Writer) ScrollUp() {
+	w.WriteRaw([]byte{0x1b, 'M'})
+}

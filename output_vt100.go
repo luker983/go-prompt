@@ -164,15 +164,8 @@ func (w *VT100Writer) UnSaveCursor() {
 
 /* Scrolling */
 
-// ScrollDown scrolls display down one line.
-func (w *VT100Writer) ScrollDown() {
-	w.WriteRaw([]byte{0x1b, 'D'})
-}
-
-// ScrollUp scroll display up one line.
-func (w *VT100Writer) ScrollUp() {
-	w.WriteRaw([]byte{0x1b, 'M'})
-}
+// scrolling is OS-specific, Windows does not support ESC D for ScrollDown
+// https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences
 
 /* Title */
 

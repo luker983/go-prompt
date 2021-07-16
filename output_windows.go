@@ -47,3 +47,24 @@ func NewStderrWriter() ConsoleWriter {
 		out: colorable.NewColorableStderr(),
 	}
 }
+
+/* Scrolling */
+
+// ScrollDown scrolls display down one line.
+// col is column position of cursor
+//
+// Windows does not support Index, only Reverse Index
+// Index behavior is achieved by writing newline and CUF until at col
+// https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences
+func (w *VT100Writer) ScrollDown(col int) {
+    c := strconv.Itoa(col)
+    w.WriteRaw([]byte{0x0a})
+    w.WriteRaw([]byte{0x1b, '['})
+    w.WriteRaw([]byte(c))
+	w.WriteRaw([]byte{'C'})
+}
+
+// ScrollUp scroll display up one line.
+func (w *VT100Writer) ScrollUp() {
+	w.WriteRaw([]byte{0x1b, 'M'})
+}

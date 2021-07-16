@@ -68,9 +68,9 @@ func (r *Render) TearDown() {
 	debug.AssertNoError(r.out.Flush())
 }
 
-func (r *Render) prepareArea(lines int) {
+func (r *Render) prepareArea(lines int, col int) {
 	for i := 0; i < lines; i++ {
-		r.out.ScrollDown()
+		r.out.ScrollDown(col)
 	}
 	for i := 0; i < lines; i++ {
 		r.out.ScrollUp()
@@ -108,9 +108,10 @@ func (r *Render) renderCompletion(buf *Buffer, completions *CompletionManager) {
 		windowHeight = int(completions.max)
 	}
 	formatted = formatted[completions.verticalScroll : completions.verticalScroll+windowHeight]
-	r.prepareArea(windowHeight)
-
 	cursor := runewidth.StringWidth(prefix) + runewidth.StringWidth(buf.Document().TextBeforeCursor())
+
+	r.prepareArea(windowHeight, cursor)
+
 	x, _ := r.toPos(cursor)
 	if x+width >= int(r.col) {
 		cursor = r.backward(cursor, x+width-int(r.col))
