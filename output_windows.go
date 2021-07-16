@@ -4,6 +4,7 @@ package prompt
 
 import (
 	"io"
+    "strconv"
 
 	colorable "github.com/mattn/go-colorable"
 )
